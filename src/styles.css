@@ -1,0 +1,18 @@
+@layer variables;
+@layer reset;
+@layer component;
+
+@layer variables {
+  :root {
+    --border-color: gray;
+    --error-color: red;
+  }
+}
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}

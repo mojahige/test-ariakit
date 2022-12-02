@@ -1,0 +1,12 @@
+@layer component {
+  .FormError {
+    margin: 0;
+    color: var(--error-color);
+    font-size: 0.8rem;
+    text-align: left;
+  }
+
+  [aria-invalid="true"] + .FormError {
+    margin-top: 0.2rem;
+  }
+}
