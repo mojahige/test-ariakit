@@ -10,15 +10,15 @@
   "main": "src/index.tsx",
   "dependencies": {
     "ariakit": "2.0.0-next.41",
-    "react": "18.0.0",
-    "react-dom": "18.0.0",
-    "react-scripts": "4.0.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-scripts": "5.0.1",
     "zod": "3.19.1"
   },
   "devDependencies": {
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
-    "typescript": "4.4.2"
+    "typescript": "4.9.3"
   },
   "scripts": {
     "start": "react-scripts start",
