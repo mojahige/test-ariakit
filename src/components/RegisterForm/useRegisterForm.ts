@@ -1,30 +1,38 @@
-import { useCallback } from "react";
 import { useFormState } from "ariakit/form";
-import { z } from "zod";
+import { z, ZodError } from "zod";
+import type { FormInputProps } from "ariakit/form";
+
+const schema = z.object({
+  name: z.string().min(1),
+});
+const schemaKey = schema.keyof();
+
+type Schema = z.infer<typeof schema>;
+
+const nameProps: FormInputProps = {
+  name: schemaKey.Enum.name,
+  required: true,
+  type: "text",
+};
 
 export const useRegisterForm = () => {
-  console.log("useRegisterForm");
-
-  const schema = z.object({
-    name: z.string().min(1)
-  });
-
-  type Schema = z.infer<typeof schema>;
-
   const state = useFormState<Schema>({
     defaultValues: {
-      name: "aria"
+      name: "aria",
+    },
+  });
+
+  state.useValidate(() => {
+    try {
+      schema.parse(state.values);
+      state.setErrors({});
+    } catch (error) {
+      if (error instanceof ZodError) {
+        // 🤔🤔🤔
+        state.setError(state.names.name.toString(), error.issues[0].message);
+      }
     }
   });
-  const nameProps = {
-    name: state.names.name,
-    required: true,
-    minLength: 1,
-    type: "text"
-  };
-  const validate = useCallback((values: Schema) => {
-    console.log(values);
-  }, []);
 
-  return { state, nameProps, validate };
+  return { state, nameProps };
 };

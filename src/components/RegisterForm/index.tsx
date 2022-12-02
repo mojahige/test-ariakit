@@ -1,42 +1,30 @@
-import { Form, useFormState } from "ariakit/form";
+import { Form } from "ariakit/form";
 import { FormLabel } from "../FormLabel";
 import { FormInput } from "../FormInput";
 import { FormError } from "../FormError";
-// import { useRegisterForm } from "./useRegisterForm";
+import { useRegisterForm } from "./useRegisterForm";
 
 export const RegisterForm = () => {
-  console.log("RegisterForm");
-  // const { state, nameProps, validate } = useRegisterForm();
-
-  // state.useValidate(() => {
-  //   validate(state.values);
-  // });
-  const state = useFormState({
-    defaultValues: {
-      name: "aria"
-    }
-  });
-  const nameProps = {
-    name: state.names.name,
-    required: true,
-    minLength: 1,
-    type: "text"
-  };
+  const { state, nameProps } = useRegisterForm();
 
   return (
     <>
+      <p>valid: {String(state.valid)}</p>
       <Form state={state}>
         <FormLabel name={state.names.name}>Name</FormLabel>
         <FormInput {...nameProps} />
         <FormError name={state.names.name} />
       </Form>
+
       <p
         style={{
           fontSize: "0.8rem",
-          textAlign: "left"
+          textAlign: "left",
         }}
       >
-        {JSON.stringify(state.names)}
+        {JSON.stringify({
+          errors: state.errors,
+        })}
       </p>
     </>
   );
